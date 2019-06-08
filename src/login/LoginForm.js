@@ -2,7 +2,7 @@ import React from 'react'
 import { Button, Form } from 'semantic-ui-react'
 import { TextInput, PasswordInput } from '../utils/form'
 
-const LoginForm = ({ handleSubmit, handleChange, validator, data }) => (
+const LoginForm = ({ handleSubmit, handleChange, validator, data, error }) => (
   <Form onSubmit={handleSubmit}>
     <TextInput
       handleChange={handleChange}
@@ -19,7 +19,7 @@ const LoginForm = ({ handleSubmit, handleChange, validator, data }) => (
       value={data.password}
       validator={validator.message('password', data.password, 'required|password')}
     />
-
+    { error && <div> {error} </div> }
     <Button type='submit'>Submit</Button>
   </Form>
 )

@@ -6,11 +6,11 @@ import formWrapperCreater from 'react-persist-form'
 import validator from '../utils/validator'
 import { Container } from 'semantic-ui-react'
 
-const FormWrapper = formWrapperCreater('resetPasswordForm')
+const FormWrapper = formWrapperCreater({name: 'resetPasswordForm', Form: Form })
 
 const initialFields = { email: '', password: '' }
 
-const Login = ({ login }) => {
+const Login = ({ error, login }) => {
   const handleSubmit = data => {
     console.log(data)
     login()
@@ -19,19 +19,26 @@ const Login = ({ login }) => {
   return (
     <Container>
       <FormWrapper
-        Form={Form}
         initialFields={initialFields}
-        handleSubmit={handleSubmit}
+        onSubmit={handleSubmit}
         validator={validator}
+        error={error}
       />
     </Container>
   )
 }
 
+const mapStateToProps = (state) => {
+  return {
+    error: state.login.error
+  }
+}
+
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
+    //login: () => dispatch(login(new TypeError('not a number')))  //simulate an error
     login: () => dispatch(login())
   }
 }
 
-export default connect(null, mapDispatchToProps)(Login)
+export default connect(mapStateToProps, mapDispatchToProps)(Login)

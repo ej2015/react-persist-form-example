@@ -7,12 +7,13 @@ export const LOGIN = {
 export const login = createAction(LOGIN.LOGIN)
 
 const initialState = {
-  loginStatus: false
+  loginStatus: false,
+  error: null
 }
 
 const reducer = handleAction( LOGIN.LOGIN, {
-  next(state, action) { return { ...state, loginStatus: true }},
-  throw(state, action) { return { ...state, loginStatus: false }}
+  next(state, action) { return { ...state, loginStatus: true, error: null }},
+  throw(state, action) { return { ...state, loginStatus: false, error: action.payload.message }}
 }, initialState)
 
 export default reducer
